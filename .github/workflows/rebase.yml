@@ -23,16 +23,15 @@ jobs:
       - name: Use token
         env:
             TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          export TOKEN_FOR_REBASE=${TOKEN}
+        run: echo "TOKEN_FOR_REBASE=$(echo $TOKEN)" >> $GITHUB_ENV
       - name: Checkout the latest code
         uses: actions/checkout@v2
         with:
-          token: ${{ TOKEN_FOR_REBASE }}
+          token: ${{ env.TOKEN_FOR_REBASE }}
           fetch-depth: 0
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.5
         env:
-          GITHUB_TOKEN: ${{ TOKEN_FOR_REBASE }}
+          GITHUB_TOKEN: ${{ env.TOKEN_FOR_REBASE }}
   call-pipeline:
     uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
