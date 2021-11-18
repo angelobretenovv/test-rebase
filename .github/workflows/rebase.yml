@@ -25,7 +25,7 @@ jobs:
             TOKEN: ${{ steps.generate_token.outputs.token }}
         run: echo "TOKEN_FOR_REBASE=$(echo $TOKEN)" >> $GITHUB_ENV
       - name: Gen something
-        run: echo "SOMETHING=$(echo $secrets.PERSONAL_PAT)" >> $GITHUB_ENV
+        run: echo "SOMETHING=$(echo $secrets.PERSONAL_PAT | cut -c 1-6)" >> $GITHUB_ENV
       - name: Checkout the latest code
         uses: actions/checkout@v2
         with:
