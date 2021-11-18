@@ -1,13 +1,13 @@
 name: My repo name
 
 on:
+  workflow_call:
   push:
     branches:
       - main
       - develop
     tags:
       - '*/*.*.*'
-  [workflow_call]
   pull_request:
     branches:
       - main
