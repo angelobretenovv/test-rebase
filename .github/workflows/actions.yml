@@ -11,10 +11,10 @@ on:
     branches:
       - main
       - develop
-  workflow_run:
-    workflows: [ "Automatic Rebase" ]
-    types:
-      - completed
+  workflow_call:
+    branches:
+      - main
+      - develop
 
 jobs:
   unit-tests:
