@@ -10,14 +10,29 @@ jobs:
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
     runs-on: ubuntu-latest
     steps:
+      - name: GitHub App token
+        uses: tibdex/github-app-token@v1.5.0
+        id: generate_token
+        with:
+            app_id: ${{ secrets.APP_ID }}
+            private_key: ${{ secrets.PRIVATE_KEY }}
+            # Optional (defaults to ID of the repository's installation).
+            # installation_id: 1337
+            # Optional (defaults to the current repository).
+            # repository: "owner/repo"
+      - name: Use token
+        env:
+            TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          export TOKEN_FOR_REBASE=${TOKEN}
       - name: Checkout the latest code
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.PERSONAL_PAT }}
+          token: ${{ TOKEN_FOR_REBASE }}
           fetch-depth: 0
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.5
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_PAT }}
+          GITHUB_TOKEN: ${{ TOKEN_FOR_REBASE }}
   call-pipeline:
     uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
