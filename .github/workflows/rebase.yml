@@ -9,31 +9,25 @@ jobs:
     name: Rebase
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      actions: write
+      contents: write
+      checks: write
+      deployments: write
+      packages: write
+      pull-requests: write
+      repository-projects: write
+      statuses: write
     steps:
-      - name: GitHub App token
-        uses: tibdex/github-app-token@v1.5.0
-        id: generate_token
-        with:
-            app_id: ${{ secrets.APP_ID }}
-            private_key: ${{ secrets.PRIVATE_KEY }}
-            # Optional (defaults to ID of the repository's installation).
-            # installation_id: 1337
-            # Optional (defaults to the current repository).
-            # repository: "owner/repo"
-      - name: Use token
-        env:
-            TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: echo "TOKEN_FOR_REBASE=$(echo $TOKEN)" >> $GITHUB_ENV
-      - name: Gen something
-        run: echo "SOMETHING=$(echo $secrets.PERSONAL_PAT | cut -c 1-6)" >> $GITHUB_ENV
       - name: Checkout the latest code
         uses: actions/checkout@v2
         with:
-          token: ${{ env.SOMETHING }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.5
         env:
-          GITHUB_TOKEN: ${{ env.SOMETHING }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   call-pipeline:
     uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
