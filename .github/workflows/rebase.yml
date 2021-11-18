@@ -2,7 +2,7 @@ name: Automatic Rebase
 
 on:
   issue_comment:
-    types: [created]
+    types: [ created ]
 
 jobs:
   rebase:
@@ -20,4 +20,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Call agent pipeline
-        uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
+  call-pipeline:
+    uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
