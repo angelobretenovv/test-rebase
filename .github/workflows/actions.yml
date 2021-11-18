@@ -1,0 +1,22 @@
+name: My repo name
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  unit-tests:
+    name: Run Unit Tests
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        python-version: [ '3.9', '3.10' ]
+    container: python:${{ matrix.python-version }}
+    steps:
+      - name: Clone Agent
+        uses: actions/checkout@v2
+      - name: Install Test Dependencies
+        run: pip install -r requirements.txt
+      - name: Run Unit Tests Py3.7+
+        run: pytest main.py
