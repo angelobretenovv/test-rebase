@@ -19,5 +19,5 @@ jobs:
         uses: cirrus-actions/rebase@1.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  call-workflow:
-    uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
+      - name: Call agent pipeline
+        uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
