@@ -16,13 +16,16 @@ jobs:
         run: |
           echo "PAT_TOKEN=$(echo $secrets.${ACTOR})" >> $GITHUB_ENV
       - name: Checkout the latest code
+        env:
+          ACTOR: ${{ github.actor }}_pat
         uses: actions/checkout@v2
         with:
-          token: ${{ env.PAT_TOKEN }}
+          token: ${{ secrets.${ACTOR} }}
           fetch-depth: 0
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.5
         env:
-          GITHUB_TOKEN: ${{ env.PAT_TOKEN }}
+          ACTOR: ${{ github.actor }}_pat
+          GITHUB_TOKEN: ${{ secrets.${ACTOR} }}
   call-pipeline:
     uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
