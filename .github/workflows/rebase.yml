@@ -14,24 +14,19 @@ jobs:
     steps:
       - name: Dani PAT
         if: ${{ env.ACTOR == 'danilito19' }}
-        run: |
-         echo "::set-env name=PAT_TOKEN::${{ secrets.DANILITO19_PAT }}"
+        run: echo "PAT_TOKEN=${{ secrets.DANILITO19_PAT }}" >> $GITHUB_ENV
       - name: Nick PAT
         if: ${{ env.ACTOR == 'nliccione' }}
-        run: |
-         echo "::set-env name=PAT_TOKEN::${{ secrets.NLICCIONE_PAT }}"
+        run: echo "PAT_TOKEN=${{ secrets.NLICCIONE_PAT }}" >> $GITHUB_ENV
       - name: Peter PAT
         if: ${{ env.ACTOR == 'lazorchakp' }}
-        run: |
-         echo "::set-env name=PAT_TOKEN::${{ secrets.LAZORCHAKP_PAT }}"
+        run: echo "PAT_TOKEN=${{ secrets.LAZORCHAKP_PAT }}" >> $GITHUB_ENV
       - name: Ivo PAT
         if: ${{ env.ACTOR == 'evtimov9' }}
-        run: |
-         echo "::set-env name=PAT_TOKEN::${{ secrets.EVTIMOV9_PAT }}"
+        run: echo "PAT_TOKEN=${{ secrets.EVTIMOV9_PAT }}" >> $GITHUB_ENV
       - name: Angel PAT
         if: ${{ env.ACTOR == 'angelobretenovv' }}
-        run: |
-         echo "::set-env name=PAT_TOKEN::${{ secrets.ANGELOBRETENOVV_PAT }}"
+        run: echo "PAT_TOKEN=${{ secrets.ANGELOBRETENOVV_PAT }}" >> $GITHUB_ENV
 
       - name: Checkout the latest code
         uses: actions/checkout@v2
