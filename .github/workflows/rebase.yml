@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Echo GH context
         env:
-          ACTOR: ${{ toJSON(github.actor) }}
-        run: echo "$ACTOR" && echo $secrets."${ACTOR}_pat"
+          ACTOR: ${{ toString(toJSON(github.actor)_pat) }}
+        run: echo "$ACTOR" && echo $secrets.${{ACTOR}}_pat
       - name: Get Personal Access Token Based on User
         run: |
           echo "PAT_TOKEN=$(echo $secrets.$(github.actor)_pat | cut -c 1-6)" >> $GITHUB_ENV
