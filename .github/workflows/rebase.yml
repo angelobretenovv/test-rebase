@@ -41,5 +41,3 @@ jobs:
         uses: cirrus-actions/rebase@1.5
         env:
           GITHUB_TOKEN: ${{ env.PAT_TOKEN }}
-  call-pipeline:
-    uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@develop
