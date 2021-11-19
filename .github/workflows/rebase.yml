@@ -38,4 +38,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ env.PAT_TOKEN }}
   call-pipeline:
-    uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
+    uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@develop
