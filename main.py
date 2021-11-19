@@ -8,3 +8,6 @@ def test_is_equal():
 def test_strings_equal():
     assert 'wow' == 'wow'
     assert 'damn' == 'damn'
+
+def test_the_man():
+    assert 'man' == 'man'
