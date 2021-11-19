@@ -6,5 +6,5 @@ def test_is_equal():
 
 
 def test_strings_equal():
-    assert 'what' == 'what'
+    assert 'wow' == 'wow'
     assert 'damn' == 'damn'
