@@ -9,20 +9,33 @@ jobs:
     name: Rebase
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
     runs-on: ubuntu-latest
+    env:
+      ACTOR: ${{ github.actor }}_pat
     steps:
-      - name: Get Personal Access Token Based on User
-        env:
-          ACTOR: ${{ github.actor }}_pat
-        run: |
-          echo "ACTOR=$(echo ${ACTOR})" >> $GITHUB_ENV
+      - name: Dani PAT
+        if: ${{ env.ACTOR == 'danilito19' }}
+        run: echo "PAT_TOKEN=$(echo $secrets.danilito19_pat)" >> $GITHUB_ENV
+      - name: Nick PAT
+        if: ${{ env.ACTOR == 'nliccione' }}
+        run: echo "PAT_TOKEN=$(echo $secrets.nliccione_pat)" >> $GITHUB_ENV
+      - name: Peter PAT
+        if: ${{ env.ACTOR == 'lazorchakp' }}
+        run: echo "PAT_TOKEN=$(echo $secrets.lazorchakp_pat)" >> $GITHUB_ENV
+      - name: Ivo PAT
+        if: ${{ env.ACTOR == 'evtimov9' }}
+        run: echo "PAT_TOKEN=$(echo $secrets.evtimov9_pat)" >> $GITHUB_ENV
+      - name: Angel PAT
+        if: ${{ env.ACTOR == 'angelobretenovv' }}
+        run: echo "PAT_TOKEN=$(echo $secrets.ANGELOBRETENOVV_PAT)" >> $GITHUB_ENV
+
       - name: Checkout the latest code
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.${{env.ACTOR}} }}
+          token: ${{ env.PAT_TOKEN }}
           fetch-depth: 0
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.5
         env:
-          GITHUB_TOKEN: ${{ secrets.${{env.ACTOR}} }}
+          GITHUB_TOKEN: ${{ env.PAT_TOKEN }}
   call-pipeline:
     uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
