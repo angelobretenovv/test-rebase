@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Echo GH context
         env:
-          ACTOR: ${{ toString(toJSON(github.actor)_pat) }}
+          ACTOR: ${{ toSTRING(toJSON(github.actor)_pat) }}
         run: echo "$ACTOR" && echo $secrets.${{ACTOR}}_pat
       - name: Get Personal Access Token Based on User
         run: |
