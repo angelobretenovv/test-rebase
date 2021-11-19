@@ -10,6 +10,7 @@ jobs:
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
     runs-on: ubuntu-latest
     permissions:
+      workflow: write
       issues: write
       actions: write
       contents: write
@@ -23,11 +24,11 @@ jobs:
       - name: Checkout the latest code
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.USER_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.5
         env:
-          GITHUB_TOKEN: ${{ secrets.USER_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   call-pipeline:
     uses: angelobretenovv/test-rebase/.github/workflows/actions.yml@main
