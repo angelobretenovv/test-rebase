@@ -10,7 +10,7 @@ jobs:
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
     runs-on: ubuntu-latest
     env:
-      ACTOR: ${{ github.actor }}_pat
+      ACTOR: ${{ github.actor }}
     steps:
       - name: Dani PAT
         if: ${{ env.ACTOR == 'danilito19' }}
